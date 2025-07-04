@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Corelleaf Website",
+        "category": "Web Development",
+        "image": "https://picsum.photos/400/300?random=1",
+        "alt": "Modern responsive website design",
+        "description": "A modern, responsive website for Corelleaf with interactive animations and a custom CMS.",
+        "link": "https://corelleaf.com"
+    },
+    {
+        "title": "AI Chatbot",
+        "category": "Artificial Intelligence",
+        "image": "https://picsum.photos/400/300?random=2",
+        "alt": "AI chatbot interface",
+        "description": "A conversational AI chatbot for customer support, built with Node.js and TensorFlow.",
+        "link": "https://github.com/corelleaf/ai-chatbot"
+    },
+    {
+        "title": "Mobile Fitness App",
+        "category": "Mobile App",
+        "image": "https://picsum.photos/400/300?random=3",
+        "alt": "Mobile fitness app screenshots",
+        "description": "A cross-platform fitness tracking app with real-time analytics and social features.",
+        "link": "https://play.google.com/store/apps/details?id=corelleaf.fitness"
+    },
+    {
+        "title": "E-commerce Dashboard",
+        "category": "Web Development",
+        "image": "https://picsum.photos/400/300?random=4",
+        "alt": "E-commerce analytics dashboard",
+        "description": "An analytics dashboard for e-commerce platforms with real-time sales tracking and reporting.",
+        "link": "https://github.com/corelleaf/ecommerce-dashboard"
+    },
+    {
+        "title": "Smart Home Controller",
+        "category": "IoT",
+        "image": "https://picsum.photos/400/300?random=5",
+        "alt": "Smart home control interface",
+        "description": "A smart home automation system with voice control and device scheduling features.",
+        "link": "https://github.com/corelleaf/smart-home"
+    },
+    {
+        "title": "Recipe Sharing Platform",
+        "category": "Web Application",
+        "image": "https://picsum.photos/400/300?random=6",
+        "alt": "Recipe sharing platform interface",
+        "description": "A social platform for sharing and discovering recipes, with user ratings and comments.",
+        "link": "https://recipes.corelleaf.com"
+    }
+]
