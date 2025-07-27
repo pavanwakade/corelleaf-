@@ -173,11 +173,11 @@ const Hero = () => {
                   Transform Your Business with{' '}
                   <span className="relative inline-block">
                     <span className="text-transparent transition-all duration-500 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text animate-gradient-x hover:from-purple-600 hover:via-indigo-600 hover:to-blue-600">
-                      Cutting-Edge
+                      Corelleaf
                     </span>
                     <div className="absolute left-0 w-full h-1 transition-all duration-700 ease-out rounded-full -bottom-2 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 animate-smooth-pulse"></div>
                   </span>{' '}
-                  Technology
+                  Design Studio
                 </h1>
               </div>
 
