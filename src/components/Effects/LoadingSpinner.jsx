@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const LoadingSpinner = () => {
+const Loading = () => {
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState('Loading');
 
@@ -138,4 +138,4 @@ const LoadingSpinner = () => {
   );
 };
 
-export default LoadingSpinner;
+export default Loading;

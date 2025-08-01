@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Code, Smartphone, Cloud, Sparkles, Zap, Rocket, Star, Globe, Shield } from 'lucide-react';
 
-
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-
 
   useEffect(() => {
     setIsLoaded(true);
@@ -205,7 +203,7 @@ const Hero = () => {
                 From cutting-edge web applications to mobile apps and cloud infrastructure, we're your trusted technology partner.
               </p>
             </div>
-            
+           
             {/* Action Buttons with enhanced hover effects */}
             <div 
               className={`flex flex-col sm:flex-row gap-4 justify-center lg:justify-start transition-all duration-1000 ease-out delay-700 ${
