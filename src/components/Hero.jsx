@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Code, Smartphone, Cloud, Sparkles, Zap, Rocket, Star, Globe, Shield } from 'lucide-react';
 
+
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+
 
   useEffect(() => {
     setIsLoaded(true);
@@ -19,9 +21,11 @@ const Hero = () => {
       });
     };
 
+
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
+
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -32,6 +36,7 @@ const Hero = () => {
     };
   }, []);
 
+
   const scrollToContact = () => {
     const element = document.getElementById('contact');
     if (element) {
@@ -39,12 +44,14 @@ const Hero = () => {
     }
   };
 
+
   const scrollToServices = () => {
     const element = document.getElementById('services');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
 
   const floatingCards = [
     { icon: Code, text: 'Web Development', color: 'blue', position: 'top-left' },
@@ -55,17 +62,19 @@ const Hero = () => {
     { icon: Star, text: 'UI/UX Design', color: 'yellow', position: 'middle-left' }
   ];
 
+
   const getCardPosition = (position) => {
     const positions = {
-      'top-left': '-top-6 -left-6 md:-top-8 md:-left-8',
-      'top-right': '-top-6 -right-6 md:-top-8 md:-right-8',
-      'bottom-left': '-bottom-6 -left-6 md:-bottom-8 md:-left-8',
-      'bottom-right': '-bottom-6 -right-6 md:-bottom-8 md:-right-8',
-      'middle-right': 'top-1/2 -right-6 md:-right-8 transform -translate-y-1/2',
-      'middle-left': 'top-1/2 -left-6 md:-left-8 transform -translate-y-1/2'
+      'top-left': '-top-4 -left-4 md:-top-8 md:-left-8',
+      'top-right': '-top-4 -right-4 md:-top-8 md:-right-8',
+      'bottom-left': '-bottom-4 -left-4 md:-bottom-8 md:-left-8',
+      'bottom-right': '-bottom-4 -right-4 md:-bottom-8 md:-right-8',
+      'middle-right': 'top-1/2 -right-4 md:-right-8 transform -translate-y-1/2',
+      'middle-left': 'top-1/2 -left-4 md:-left-8 transform -translate-y-1/2'
     };
     return positions[position] || '';
   };
+
 
   const getColorClasses = (color) => {
     const colors = {
@@ -79,38 +88,40 @@ const Hero = () => {
     return colors[color] || colors.blue;
   };
 
+
   return (
     <section 
       id="hero" 
-      className="relative flex items-center min-h-screen pt-16 pb-12 overflow-hidden md:pt-20 md:pb-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50"
+      className="relative flex items-center min-h-screen pt-20 pb-16 overflow-hidden md:pt-24 md:pb-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50"
     >
       {/* Dynamic Background with smooth transitions */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Animated gradient orbs with smooth movement */}
         <div 
-          className="absolute w-96 h-96 md:w-[32rem] md:h-[32rem] rounded-full blur-3xl opacity-30 transition-all duration-1000 ease-out"
+          className="absolute w-64 h-64 md:w-[32rem] md:h-[32rem] rounded-full blur-3xl opacity-30 transition-all duration-1000 ease-out"
           style={{
             background: 'radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(147,51,234,0.4) 50%, rgba(59,130,246,0.2) 100%)',
-            top: '-20%',
-            right: '-15%',
+            top: '-10%',
+            right: '-10%',
             transform: `translate3d(${mousePosition.x * 0.03}px, ${mousePosition.y * 0.03}px, 0) scale(${1 + Math.sin(Date.now() * 0.001) * 0.1})`,
             animation: 'smooth-pulse 4s ease-in-out infinite'
           }}
         ></div>
         
         <div 
-          className="absolute transition-all ease-out rounded-full opacity-25 w-80 h-80 md:w-96 md:h-96 blur-3xl duration-1200"
+          className="absolute w-56 h-56 transition-all ease-out rounded-full opacity-25 md:w-96 md:h-96 blur-3xl duration-1200"
           style={{
             background: 'radial-gradient(circle, rgba(147,51,234,0.4) 0%, rgba(236,72,153,0.4) 50%, rgba(59,130,246,0.2) 100%)',
-            bottom: '-15%',
+            bottom: '-10%',
             left: '-10%',
             transform: `translate3d(${mousePosition.x * -0.025}px, ${mousePosition.y * -0.025}px, 0) scale(${1 + Math.cos(Date.now() * 0.0008) * 0.1})`,
             animation: 'smooth-pulse 5s ease-in-out infinite 1.5s'
           }}
         ></div>
 
+
         <div 
-          className="absolute transition-all duration-700 ease-out rounded-full w-72 h-72 md:w-80 md:h-80 blur-2xl opacity-20"
+          className="absolute w-48 h-48 transition-all duration-700 ease-out rounded-full md:w-80 md:h-80 blur-2xl opacity-20"
           style={{
             background: 'conic-gradient(from 0deg, rgba(59,130,246,0.3), rgba(147,51,234,0.3), rgba(236,72,153,0.3), rgba(59,130,246,0.3))',
             top: '50%',
@@ -120,9 +131,10 @@ const Hero = () => {
           }}
         ></div>
 
+
         {/* Additional smooth background elements */}
         <div 
-          className="absolute w-64 h-64 transition-all duration-500 ease-out rounded-full blur-2xl opacity-15"
+          className="absolute w-40 h-40 transition-all duration-500 ease-out rounded-full md:w-64 md:h-64 blur-2xl opacity-15"
           style={{
             background: 'linear-gradient(45deg, rgba(99,102,241,0.3), rgba(168,85,247,0.3))',
             top: '20%',
@@ -135,23 +147,24 @@ const Hero = () => {
       
       {/* Enhanced floating particles with smoother movement */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <div
             key={i}
             className={`absolute rounded-full transition-all duration-700 ease-out ${
-              i % 3 === 0 ? 'bg-blue-400/30 w-1.5 h-1.5 md:w-2.5 md:h-2.5' : 
-              i % 3 === 1 ? 'bg-purple-400/30 w-1 h-1 md:w-2 md:h-2' : 
-              'bg-pink-400/30 w-2 h-2 md:w-3 md:h-3'
+              i % 3 === 0 ? 'bg-blue-400/30 w-1.5 h-1.5' : 
+              i % 3 === 1 ? 'bg-purple-400/30 w-1 h-1' : 
+              'bg-pink-400/30 w-2 h-2'
             }`}
             style={{
-              left: `${15 + (i * 7) % 70}%`,
-              top: `${20 + (i * 11) % 60}%`,
-              transform: `translateY(${Math.sin((Date.now() + i * 1000) * 0.002) * 20}px) translateX(${Math.cos((Date.now() + i * 1500) * 0.0015) * 15}px) scale(${0.5 + (i % 3) * 0.3})`,
+              left: `${10 + (i * 10) % 80}%`,
+              top: `${15 + (i * 15) % 70}%`,
+              transform: `translateY(${Math.sin((Date.now() + i * 1000) * 0.002) * 15}px) translateX(${Math.cos((Date.now() + i * 1500) * 0.0015) * 10}px) scale(${0.4 + (i % 3) * 0.2})`,
               animation: `smooth-bounce ${2.5 + (i % 3) * 0.5}s ease-in-out infinite ${i * 0.3}s`
             }}
           ></div>
         ))}
       </div>
+
 
       <div className="container px-4 mx-auto sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:gap-12 lg:grid-cols-2">
@@ -169,7 +182,7 @@ const Hero = () => {
                   isLoaded ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
                 }`}
               >
-                <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                <h1 className="text-4xl font-bold leading-tight text-center text-gray-900 sm:text-5xl md:text-6xl lg:text-left xl:text-7xl">
                   Transform Your Business with{' '}
                   <span className="relative inline-block">
                     <span className="text-transparent transition-all duration-500 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text animate-gradient-x hover:from-purple-600 hover:via-indigo-600 hover:to-blue-600">
@@ -177,13 +190,14 @@ const Hero = () => {
                     </span>
                     <div className="absolute left-0 w-full h-1 transition-all duration-700 ease-out rounded-full -bottom-2 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 animate-smooth-pulse"></div>
                   </span>{' '}
-                  Design Studio
+                  {/* Design Studio */}
                 </h1>
               </div>
 
+
               {/* Description with smooth fade-in */}
               <p 
-                className={`text-base sm:text-lg md:text-xl leading-relaxed text-gray-600 max-w-2xl transition-all duration-1000 ease-out delay-500 ${
+                className={`text-base sm:text-lg md:text-xl leading-relaxed text-center text-gray-600 max-w-2xl mx-auto lg:text-left lg:mx-0 transition-all duration-1000 ease-out delay-500 ${
                   isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                 }`}
               >
@@ -194,7 +208,7 @@ const Hero = () => {
             
             {/* Action Buttons with enhanced hover effects */}
             <div 
-              className={`flex flex-col sm:flex-row gap-4 transition-all duration-1000 ease-out delay-700 ${
+              className={`flex flex-col sm:flex-row gap-4 justify-center lg:justify-start transition-all duration-1000 ease-out delay-700 ${
                 isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
               }`}
             >
@@ -224,9 +238,10 @@ const Hero = () => {
             </div>            
           </div>
 
+
           {/* Image Section with smooth parallax */}
           <div 
-            className={`relative transition-all duration-1200 ease-out delay-500 ${
+            className={`relative hidden lg:block transition-all duration-1200 ease-out delay-500 ${
               isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
             }`}
             style={{ transform: `translateY(${scrollY * -0.05}px)` }}
@@ -236,7 +251,7 @@ const Hero = () => {
                 <img
                   src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
                   alt="Team working on technology solutions"
-                  className="w-full h-50 sm:h-80 md:h-96 lg:h-[400px] object-cover transition-all duration-1000 ease-out transform group-hover:scale-110"
+                  className="object-cover w-full h-auto transition-all duration-1000 ease-out transform group-hover:scale-110"
                 />
                 <div className="absolute inset-0 transition-all duration-700 ease-out opacity-0 bg-gradient-to-tr from-blue-600/30 via-purple-600/20 to-indigo-600/30 group-hover:opacity-100"></div>
                 
@@ -268,6 +283,7 @@ const Hero = () => {
               );
             })}
 
+
             {/* Additional decorative elements with smooth animations */}
             <div 
               className="absolute w-2 h-2 bg-blue-400 rounded-full top-1/4 left-1/4"
@@ -293,6 +309,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
 
       <style jsx>{`
         @keyframes smooth-float {
@@ -375,17 +392,20 @@ const Hero = () => {
           animation: smooth-pulse 2s ease-in-out infinite;
         }
 
+
         /* Smooth transitions for all elements */
         * {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
 
+
         /* Hardware acceleration for better performance */
         .group, .group/card {
           will-change: transform;
           transform: translateZ(0);
         }
+
 
         /* Custom easing for ultra-smooth animations */
         .transition-all {
@@ -395,5 +415,6 @@ const Hero = () => {
     </section>
   );
 };
+
 
 export default Hero;

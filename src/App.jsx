@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import SplashCursor from './components/Effects/SplashCursor.jsx';
+// import SplashCursor from './components/Effects/SplashCursor.jsx';
 import About from './components/About';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
-import Team from './components/Team';
+
+// import Team from './components/Team';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ViewOpenPositions from './components/ViewOpenPositions';
 import ScrollVelocity from './components/Effects/ScrollVelocity.jsx';
-import Preloader from './components/Preloader';
+import Preloader from './components/Effects/Preloader.jsx';
 
 
 // Advanced Preloader Component
@@ -46,7 +47,7 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen overflow-x-hidden bg-white">
         {/* Global cursor effect */}
-        <SplashCursor />
+        {/* <SplashCursor /> */}
 
         {loading ? (
           <Preloader onComplete={handlePreloaderComplete} />
@@ -60,6 +61,7 @@ function App() {
                   <Hero />
                   <About />
                   <Services />
+                  <Portfolio />
 
 
                   <ScrollVelocity
@@ -70,8 +72,8 @@ function App() {
                     gap={30}
                     numCopies={6}
                   />
-                  <Portfolio />
-                  <Team />
+                  
+                  {/* <Team /> */}
                   <Testimonials />
                   <Contact />
                   <Footer />

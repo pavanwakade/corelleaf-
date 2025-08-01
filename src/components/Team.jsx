@@ -103,13 +103,12 @@ const Team = () => {
         </div>
 
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {/* <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {teamMembers.map((member, index) => (
             <div
               key={index}
               className="relative overflow-hidden transition-all duration-500 border border-gray-100 shadow-xl bg-white/80 backdrop-blur-sm rounded-2xl hover:shadow-2xl group hover:-translate-y-2"
             >
-              {/* Animated border */}
               <div className={`absolute inset-0 bg-gradient-to-r ${member.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} style={{ padding: '2px' }}>
                 <div className="w-full h-full bg-white rounded-2xl"></div>
               </div>
@@ -122,12 +121,10 @@ const Team = () => {
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
 
-                {/* Specialty badge */}
                 <div className={`absolute top-4 right-4 bg-gradient-to-r ${member.gradient} text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform translate-x-full group-hover:translate-x-0 transition-transform duration-500`}>
                   {member.specialty}
                 </div>
 
-                {/* Floating star */}
                 <div className="absolute transition-opacity duration-500 delay-200 opacity-0 top-4 left-4 group-hover:opacity-100">
                   <Star className={`animate-pulse text-yellow-400`} size={20} />
                 </div>
@@ -169,7 +166,7 @@ const Team = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
 
 
         <div className="mt-16 text-center">

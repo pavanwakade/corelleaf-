@@ -14,7 +14,7 @@ const Header = () => {
     { name: 'About', id: 'about', icon: Users, gradient: 'from-purple-500 to-pink-500' },
     { name: 'Services', id: 'services', icon: Zap, gradient: 'from-orange-500 to-red-500' },
     { name: 'Portfolio', id: 'portfolio', icon: Briefcase, gradient: 'from-green-500 to-emerald-500' },
-    { name: 'Team', id: 'team', icon: Rocket, gradient: 'from-indigo-500 to-purple-500' },
+    // { name: 'Team', id: 'team', icon: Rocket, gradient: 'from-indigo-500 to-purple-500' },
     { name: 'Contact', id: 'contact', icon: Mail, gradient: 'from-pink-500 to-rose-500' }
   ], []);
 
