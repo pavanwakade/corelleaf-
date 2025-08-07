@@ -1,40 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Code, Smartphone, Cloud, Sparkles, Zap, Rocket, Star, Globe, Shield } from 'lucide-react';
 
+// Hero component for the landing page, featuring responsive design and smooth animations
 const Hero = () => {
+  // State for mouse position tracking (for parallax effects)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // State to handle load animation
   const [isLoaded, setIsLoaded] = useState(false);
+  // State for scroll position (for subtle parallax)
   const [scrollY, setScrollY] = useState(0);
 
+  // Effect to set up event listeners for mouse, scroll, and initial load
   useEffect(() => {
     setIsLoaded(true);
-    
+
+    // Handle mouse movement with smoothed updates
     const handleMouseMove = (e) => {
       const x = (e.clientX / window.innerWidth) * 100;
       const y = (e.clientY / window.innerHeight) * 100;
-      
-      // Smooth transition with requestAnimationFrame
       requestAnimationFrame(() => {
         setMousePosition({ x, y });
       });
     };
 
-
+    // Handle scroll updates
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
 
-
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
+    // Cleanup listeners on unmount
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-
+  // Function to scroll to contact section smoothly
   const scrollToContact = () => {
     const element = document.getElementById('contact');
     if (element) {
@@ -42,7 +46,7 @@ const Hero = () => {
     }
   };
 
-
+  // Function to scroll to services section smoothly
   const scrollToServices = () => {
     const element = document.getElementById('services');
     if (element) {
@@ -50,7 +54,7 @@ const Hero = () => {
     }
   };
 
-
+  // Array of floating cards data
   const floatingCards = [
     { icon: Code, text: 'Web Development', color: 'blue', position: 'top-left' },
     { icon: Smartphone, text: 'Mobile Apps', color: 'green', position: 'bottom-right' },
@@ -60,7 +64,7 @@ const Hero = () => {
     { icon: Star, text: 'UI/UX Design', color: 'yellow', position: 'middle-left' }
   ];
 
-
+  // Helper to get card positions with responsive adjustments
   const getCardPosition = (position) => {
     const positions = {
       'top-left': '-top-4 -left-4 md:-top-8 md:-left-8',
@@ -73,7 +77,7 @@ const Hero = () => {
     return positions[position] || '';
   };
 
-
+  // Helper to get color classes for cards
   const getColorClasses = (color) => {
     const colors = {
       blue: 'border-blue-200/60 bg-blue-50/90 text-blue-600 hover:bg-blue-100/95 hover:border-blue-300/80',
@@ -85,7 +89,6 @@ const Hero = () => {
     };
     return colors[color] || colors.blue;
   };
-
 
   return (
     <section 
@@ -117,7 +120,6 @@ const Hero = () => {
           }}
         ></div>
 
-
         <div 
           className="absolute w-48 h-48 transition-all duration-700 ease-out rounded-full md:w-80 md:h-80 blur-2xl opacity-20"
           style={{
@@ -128,7 +130,6 @@ const Hero = () => {
             animation: 'smooth-spin 60s linear infinite'
           }}
         ></div>
-
 
         {/* Additional smooth background elements */}
         <div 
@@ -163,7 +164,6 @@ const Hero = () => {
         ))}
       </div>
 
-
       <div className="container px-4 mx-auto sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:gap-12 lg:grid-cols-2">
           {/* Content Section with smooth animations */}
@@ -191,7 +191,6 @@ const Hero = () => {
                   {/* Design Studio */}
                 </h1>
               </div>
-
 
               {/* Description with smooth fade-in */}
               <p 
@@ -236,10 +235,9 @@ const Hero = () => {
             </div>            
           </div>
 
-
-          {/* Image Section with smooth parallax */}
+          {/* Image Section with smooth parallax - now visible on all screens, with mobile adjustments */}
           <div 
-            className={`relative hidden lg:block transition-all duration-1200 ease-out delay-500 ${
+            className={`relative transition-all duration-1200 ease-out delay-500 ${
               isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
             }`}
             style={{ transform: `translateY(${scrollY * -0.05}px)` }}
@@ -261,7 +259,7 @@ const Hero = () => {
               <div className="absolute inset-0 transition-all duration-700 ease-out scale-105 opacity-60 rounded-3xl bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-indigo-400/20 blur-xl group-hover:opacity-100 group-hover:scale-110"></div>
             </div>
             
-            {/* Enhanced Floating Cards with smooth animations */}
+            {/* Enhanced Floating Cards with smooth animations - now responsive */}
             {floatingCards.map((card, index) => {
               const Icon = card.icon;
               return (
@@ -280,7 +278,6 @@ const Hero = () => {
                 </div>
               );
             })}
-
 
             {/* Additional decorative elements with smooth animations */}
             <div 
@@ -307,7 +304,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
 
       <style jsx>{`
         @keyframes smooth-float {
@@ -390,13 +386,11 @@ const Hero = () => {
           animation: smooth-pulse 2s ease-in-out infinite;
         }
 
-
         /* Smooth transitions for all elements */
         * {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
-
 
         /* Hardware acceleration for better performance */
         .group, .group/card {
@@ -404,15 +398,58 @@ const Hero = () => {
           transform: translateZ(0);
         }
 
-
         /* Custom easing for ultra-smooth animations */
         .transition-all {
           transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+          /* Stack content vertically */
+          .grid {
+            grid-template-columns: 1fr;
+          }
+
+          /* Reduce animation intensity for performance */
+          [style*="animation"] {
+            animation-duration: 6s !important; /* Slower for smoothness */
+          }
+
+          /* Scale down floating cards on mobile */
+          .group/card {
+            transform: scale(0.8);
+            p: 2; /* Smaller padding */
+          }
+
+          /* Adjust heading size for better readability */
+          h1 {
+            font-size: 2.5rem !important;
+            line-height: 1.2 !important;
+          }
+
+          /* Center buttons and add spacing */
+          .flex {
+            justify-content: center;
+            gap: 1rem;
+          }
+
+          /* Reduce parallax movement on mobile */
+          [style*="transform"] {
+            transform: translateY(0) !important; /* Disable heavy parallax */
+          }
+
+          /* Respect reduced motion preference */
+          @media (prefers-reduced-motion: reduce) {
+            * [style*="animation"],
+            .transition-all {
+              animation: none !important;
+              transition: none !important;
+            }
+          }
         }
       `}</style>
     </section>
   );
 };
-
 
 export default Hero;

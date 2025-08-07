@@ -155,10 +155,24 @@ const Footer = () => {
                   <Mail size={18} />
                 </button>
               </div> */}
+              <div className="flex items-center gap-3">
+                <Mail size={18} className="text-blue-400" />
+                <a
+                  href="mailto:info@corelleaf.com"
+                  className="text-gray-300 hover:text-blue-400 transition"
+                >
+                  info@corelleaf.com
+                </a>
+              </div>
 
               <div className="flex items-center gap-3">
                 <Mail size={18} className="text-blue-400" />
-                <span className="text-gray-300">career@corelleaf.com</span>
+                <a
+                  href="mailto:career@corelleaf.com"
+                  className="text-gray-300 hover:text-blue-400 transition"
+                >
+                  career@corelleaf.com
+                </a>
               </div>
             </div>
 

@@ -4,6 +4,8 @@ import {
   Calendar, MessageSquare, Zap, Globe, Shield, Award
 } from 'lucide-react';
 
+const scriptURL = ' https://script.google.com/macros/s/AKfycbz7W7fsSf4rLztHFkJKA3MgdIgc7DByN7v0g5ujVYbxTny9LSZNUFoDERwKy6X7xjK7CA/exec'; // REPLACE WITH YOUR DEPLOYMENT ID
+  // const scriptURL = import.meta.env.VITE_GOOGLE_SCRIPT_CONTACT;
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -87,9 +89,18 @@ const Contact = () => {
     if (validateForm()) {
       setIsSubmitting(true);
 
-      // Simulate API call with loading state
-      setTimeout(() => {
-        setIsSubmitting(false);
+      try {
+        const response = await fetch(scriptURL, {
+          method: 'POST',
+          mode: 'no-cors', // Required for Google Apps Script
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams(formData).toString(),
+        });
+
+        // For 'no-cors' mode, response.ok will always be false.
+        // We'll assume success if no error is thrown.
         setIsSubmitted(true);
 
         // Reset form after success message
@@ -103,8 +114,14 @@ const Contact = () => {
             service: '',
             message: ''
           });
-        }, 4000);
-      }, 2000);
+        }, 4000); // Display success message for 4 seconds
+
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('There was an error submitting your form. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -112,7 +129,7 @@ const Contact = () => {
     {
       icon: <Mail className="text-blue-600" size={28} />,
       title: "Email Us",
-      details: "career@corelleaf.com",
+      details: "info@corelleaf.com",
       subDetails: "We'll respond within 24 hours",
       color: "from-blue-500 to-cyan-500",
       bgColor: "bg-blue-50",
@@ -274,15 +291,14 @@ const Contact = () => {
               </div>
 
               <h3 className="mb-4 text-2xl font-black text-gray-900 sm:text-3xl lg:text-4xl">
-                Let's Create Something{' '}
+               {' '}
                 <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
-                  Amazing
+                  Let’s Build the Future Together
                 </span>
               </h3>
 
               <p className="text-base leading-relaxed text-gray-600 sm:text-lg">
-                Whether you need a complete digital transformation or just want to discuss your ideas,
-                we're here to help. Our team of experts is ready to turn your vision into reality.
+               Whether you're starting from scratch or refining a big idea, we're excited to help. Let’s connect and turn your thoughts into powerful, real-world solutions.
               </p>
             </div>
 

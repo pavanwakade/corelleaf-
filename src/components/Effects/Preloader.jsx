@@ -1,44 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Preloader = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
+  const animationTimeoutRef = useRef(null);
+  const hideTimeoutRef = useRef(null);
 
   useEffect(() => {
-    // Simulate loading progress
-    const interval = setInterval(() => {
+    // Simulate loading progress with smoother increments
+    intervalRef.current = setInterval(() => {
       setProgress(prev => {
-        if (prev >= 95) {
-          clearInterval(interval);
-          return 95;
+        if (prev >= 98) {
+          clearInterval(intervalRef.current);
+          return 98;
         }
-        return prev + Math.random() * 3 + 1;
+        return prev + Math.random() * 2 + 0.5;
       });
-    }, 100);
+    }, 80);
 
-    // Simulate window load event after 3 seconds
-    const loadTimeout = setTimeout(() => {
-      clearInterval(interval);
+    // Complete loading after 3 seconds
+    timeoutRef.current = setTimeout(() => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
 
-      // Complete the progress to 100%
+      // Smoothly complete progress to 100%
       setProgress(100);
 
-      // Start completion animations after a brief delay
-      setTimeout(() => {
+      // Start completion animations
+      animationTimeoutRef.current = setTimeout(() => {
         setIsComplete(true);
 
         // Hide preloader after animations complete
-        setTimeout(() => {
+        hideTimeoutRef.current = setTimeout(() => {
           setIsHidden(true);
           if (onComplete) onComplete();
-        }, 1400); // Total animation duration
-      }, 500);
+        }, 1400);
+      }, 300);
     }, 3000);
 
+    // Cleanup function
     return () => {
-      clearInterval(interval);
-      clearTimeout(loadTimeout);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (animationTimeoutRef.current) clearTimeout(animationTimeoutRef.current);
+      if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
     };
   }, [onComplete]);
 
@@ -51,7 +60,9 @@ const Preloader = ({ onComplete }) => {
 
       <div className="preloader-block">
         <div className={`title ${isComplete ? 'fade-up' : ''}`}>corelleaf</div>
-        <div className={`percent ${isComplete ? 'fade-out' : ''}`}>{Math.round(progress)}</div>
+        <div className={`percent ${isComplete ? 'fade-out' : ''}`}>
+          {Math.round(progress)}
+        </div>
         <div className={`loading ${isComplete ? 'fade-down' : ''}`}>loading...</div>
       </div>
 
@@ -62,7 +73,7 @@ const Preloader = ({ onComplete }) => {
         ></div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .preloader {
           position: fixed;
           top: 0;
@@ -70,6 +81,7 @@ const Preloader = ({ onComplete }) => {
           width: 100%;
           height: 100%;
           z-index: 99999;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         .preloader .preloader-before,
@@ -81,6 +93,7 @@ const Preloader = ({ onComplete }) => {
           height: 50%;
           background: #090808;
           transition: transform 1s ease-in-out;
+          will-change: transform;
         }
 
         .preloader .preloader-before {
@@ -121,10 +134,10 @@ const Preloader = ({ onComplete }) => {
           font-size: 25px;
           letter-spacing: 0px;
           color: #fff;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           transition: all 1s ease-in-out;
           opacity: 1;
           transform: translateY(0);
+          will-change: transform, opacity;
         }
 
         .preloader .preloader-block .title.fade-up {
@@ -142,8 +155,9 @@ const Preloader = ({ onComplete }) => {
           font-size: 24vw;
           color: rgba(54, 54, 53, 0.1);
           z-index: 1;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           transition: opacity 1s ease-in-out;
+          will-change: opacity;
+          user-select: none;
         }
 
         .preloader .preloader-block .percent.fade-out {
@@ -162,11 +176,11 @@ const Preloader = ({ onComplete }) => {
           text-transform: uppercase;
           letter-spacing: 0px;
           color: #fff;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           animation: blink-animation 2.2s linear infinite;
           transition: all 1s ease-in-out;
           opacity: 1;
           transform: translateY(0);
+          will-change: transform, opacity;
         }
 
         .preloader .preloader-block .loading.fade-down {
@@ -189,6 +203,7 @@ const Preloader = ({ onComplete }) => {
           background: #1d1d1d;
           transition: transform 0.5s ease-in-out;
           transition-delay: 0.2s;
+          will-change: transform;
         }
 
         .preloader .preloader-bar.slide-right {
@@ -204,10 +219,11 @@ const Preloader = ({ onComplete }) => {
           height: 100%;
           width: 0;
           background: #fff;
-          transition: width 0.3s ease-out;
+          transition: width 0.2s ease-out;
+          will-change: width;
         }
 
-        /* Responsive font size for smaller screens */
+        /* Responsive design improvements */
         @media (max-width: 768px) {
           .preloader .preloader-block .title {
             font-size: 20px;
@@ -219,6 +235,36 @@ const Preloader = ({ onComplete }) => {
           
           .preloader .preloader-block .loading {
             font-size: 12px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .preloader .preloader-block .title {
+            font-size: 18px;
+          }
+          
+          .preloader .preloader-block .percent {
+            font-size: 35vw;
+          }
+          
+          .preloader .preloader-block .loading {
+            font-size: 11px;
+          }
+        }
+
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+          .preloader .preloader-before,
+          .preloader .preloader-after,
+          .preloader .preloader-block .title,
+          .preloader .preloader-block .percent,
+          .preloader .preloader-block .loading,
+          .preloader .preloader-bar {
+            transition-duration: 0.3s;
+          }
+          
+          .preloader .preloader-block .loading {
+            animation: none;
           }
         }
       `}</style>

@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
-  X, Upload, User, Mail, Phone, MapPin, Calendar, 
+  X, User, Mail, Phone, MapPin, Calendar, 
   FileText, Code, Award, Send, ArrowLeft, Star,
   Briefcase, Clock, DollarSign, Users, Heart, Globe,
   Download, Eye, CheckCircle, AlertCircle
 } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const JobApplicationPage = ({ job, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -46,15 +47,11 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
     }
   });
 
-  const [resume, setResume] = useState(null);
-  const [coverLetterFile, setCoverLetterFile] = useState(null);
+  const [resume, setResume] = useState('');
+  const [coverLetterFile, setCoverLetterFile] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [dragActive, setDragActive] = useState(false);
-
-  const fileInputRef = useRef(null);
-  const coverLetterInputRef = useRef(null);
 
   const steps = [
     { id: 1, title: 'Personal Information', icon: <User size={20} /> },
@@ -82,42 +79,6 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
     }
   };
 
-  const handleFileUpload = (e, type) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (type === 'resume') {
-        setResume(file);
-      } else if (type === 'coverLetter') {
-        setCoverLetterFile(file);
-      }
-    }
-  };
-
-  const handleDrag = (e, type) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === 'dragenter' || e.type === 'dragover') {
-      setDragActive(true);
-    } else if (e.type === 'dragleave') {
-      setDragActive(false);
-    }
-  };
-
-  const handleDrop = (e, type) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0];
-      if (type === 'resume') {
-        setResume(file);
-      } else if (type === 'coverLetter') {
-        setCoverLetterFile(file);
-      }
-    }
-  };
-
   const validateStep = (step) => {
     const newErrors = {};
     
@@ -133,7 +94,7 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
         if (!formData.skills.technicalSkills) newErrors['skills.technicalSkills'] = 'Technical skills are required';
         break;
       case 3:
-        if (!resume) newErrors['resume'] = 'Resume is required';
+        if (!resume) newErrors['resume'] = 'Resume URL is required';
         if (!formData.motivation.whyInterested) newErrors['motivation.whyInterested'] = 'Please explain your interest';
         break;
     }
@@ -154,21 +115,71 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
 
   const handleSubmit = async () => {
     if (!validateStep(3)) return;
-    
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    const applicationData = {
-      ...formData,
-      resume: resume?.name,
-      coverLetter: coverLetterFile?.name,
-      submittedAt: new Date().toISOString()
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz4ZvTj2kLp5tJwtmVsYbuocbwxQb33c1wG142bXj92JDWx45C7BuJR0I2poW24nUYt7Q/exec"; // Replace with the actual Google Apps Script URL
+  // const scriptURL = import.meta.env.VITE_GOOGLE_SCRIPT_JOB_URL;
+    const data = {
+      jobTitle: job.title || '',
+      jobDepartment: job.department || '',
+      jobLocation: job.location || '',
+      jobType: job.type || '',
+      firstName: formData.personalInfo.firstName || '',
+      lastName: formData.personalInfo.lastName || '',
+      email: formData.personalInfo.email || '',
+      phone: formData.personalInfo.phone || '',
+      location: formData.personalInfo.location || '',
+      linkedIn: formData.personalInfo.linkedIn || '',
+      github: formData.personalInfo.github || '',
+      portfolio: formData.personalInfo.portfolio || '',
+      currentRole: formData.experience.currentRole || '',
+      currentCompany: formData.experience.currentCompany || '',
+      yearsOfExperience: formData.experience.yearsOfExperience || '',
+      relevantExperience: formData.experience.relevantExperience || '',
+      previousCompany: formData.experience.previousCompany || '',
+      degree: formData.education.degree || '',
+      institution: formData.education.institution || '',
+      graduationYear: formData.education.graduationYear || '',
+      additionalCertifications: formData.education.additionalCertifications || '',
+      technicalSkills: formData.skills.technicalSkills || '',
+      frameworks: formData.skills.frameworks || '',
+      databases: formData.skills.databases || '',
+      tools: formData.skills.tools || '',
+      whyInterested: formData.motivation.whyInterested || '',
+      availabilityDate: formData.motivation.availabilityDate || '',
+      salaryExpectation: formData.motivation.salaryExpectation || '',
+      willingToRelocate: formData.motivation.willingToRelocate || '',
+      resume: resume || '', // Sending URL directly
+      coverLetterFile: coverLetterFile || '' // Sending URL directly
     };
-    
-    onSubmit(job.id, applicationData);
-    setIsSubmitting(false);
+
+    fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(data).toString(),
+    })
+      .then(response => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Application submitted successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        onSubmit(job.id, formData);
+      })
+      .catch(error => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Something went wrong. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   const renderStepContent = () => {
@@ -378,7 +389,7 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Technical Skills *
+                  Frontend Skills & Other *
                 </label>
                 <textarea
                   value={formData.skills.technicalSkills}
@@ -386,7 +397,7 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
                   className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors h-24 ${
                     errors['skills.technicalSkills'] ? 'border-red-500' : 'border-gray-300'
                   }`}
-                  placeholder="List your technical skills (e.g., Java, Spring Boot, React, etc.)"
+                  placeholder="List your Frontend skills (e.g., HTML,CSS,etc.)"
                 />
                 {errors['skills.technicalSkills'] && (
                   <p className="mt-1 text-sm text-red-600">{errors['skills.technicalSkills']}</p>
@@ -396,13 +407,13 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Frameworks & Libraries
+                    backend skills & Frameworks & Libraries
                   </label>
                   <textarea
                     value={formData.skills.frameworks}
                     onChange={(e) => handleInputChange('skills', 'frameworks', e.target.value)}
                     className="w-full h-20 px-4 py-3 transition-colors border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Frameworks and libraries you work with"
+                    placeholder="Frameworks and backend you work with"
                   />
                 </div>
 
@@ -431,6 +442,57 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
                 />
               </div>
             </div>
+
+            <h3 className="mb-6 text-2xl font-bold text-gray-900">Education</h3>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Degree
+                </label>
+                <input
+                  type="text"
+                  value={formData.education.degree}
+                  onChange={(e) => handleInputChange('education', 'degree', e.target.value)}
+                  className="w-full px-4 py-3 transition-colors border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="e.g., BE - CS"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Institution or University
+                </label>
+                <input
+                  type="text"
+                  value={formData.education.institution}
+                  onChange={(e) => handleInputChange('education', 'institution', e.target.value)}
+                  className="w-full px-4 py-3 transition-colors border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="e.g., institution/University of Example"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Graduation Year
+                </label>
+                <input
+                  type="text"
+                  value={formData.education.graduationYear}
+                  onChange={(e) => handleInputChange('education', 'graduationYear', e.target.value)}
+                  className="w-full px-4 py-3 transition-colors border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="e.g., 2020"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Additional Certifications
+                </label>
+                <textarea
+                  value={formData.education.additionalCertifications}
+                  onChange={(e) => handleInputChange('education', 'additionalCertifications', e.target.value)}
+                  className="w-full h-20 px-4 py-3 transition-colors border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="e.g., Java Full Stack from XYZ"
+                />
+              </div>
+            </div>
           </div>
         );
 
@@ -440,109 +502,40 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
             <h3 className="mb-6 text-2xl font-bold text-gray-900">Documents & Motivation</h3>
             
             <div className="space-y-6">
-              {/* Resume Upload */}
+              {/* Resume URL */}
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Resume/CV *
+                  Resume/CV URL *
                 </label>
-                <div
-                  className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
-                    dragActive ? 'border-blue-500 bg-blue-50' : errors['resume'] ? 'border-red-500' : 'border-gray-300'
-                  } hover:border-blue-400 hover:bg-blue-50`}
-                  onDragEnter={(e) => handleDrag(e, 'resume')}
-                  onDragLeave={(e) => handleDrag(e, 'resume')}
-                  onDragOver={(e) => handleDrag(e, 'resume')}
-                  onDrop={(e) => handleDrop(e, 'resume')}
-                >
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={(e) => handleFileUpload(e, 'resume')}
-                    className="hidden"
-                  />
-                  
-                  {resume ? (
-                    <div className="flex items-center justify-center space-x-3">
-                      <FileText className="w-8 h-8 text-green-500" />
-                      <div>
-                        <p className="font-medium text-gray-900">{resume.name}</p>
-                        <p className="text-sm text-gray-500">{(resume.size / 1024 / 1024).toFixed(2)} MB</p>
-                      </div>
-                      <button
-                        onClick={() => setResume(null)}
-                        className="p-1 text-red-500 transition-colors rounded-full hover:bg-red-50"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  ) : (
-                    <div>
-                      <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                      <p className="mb-2 text-lg font-medium text-gray-900">Upload your resume</p>
-                      <p className="mb-4 text-gray-500">Drag and drop or click to browse</p>
-                      <button
-                        onClick={() => fileInputRef.current?.click()}
-                        className="px-6 py-2 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
-                      >
-                        Choose File
-                      </button>
-                      <p className="mt-2 text-xs text-gray-400">PDF, DOC, DOCX up to 10MB</p>
-                    </div>
-                  )}
-                </div>
+                <input
+                  type="url"
+                  value={resume}
+                  onChange={(e) => setResume(e.target.value)}
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+                    errors['resume'] ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="https://your-resume-link.com"
+                />
                 {errors['resume'] && (
                   <p className="mt-1 text-sm text-red-600">{errors['resume']}</p>
                 )}
               </div>
 
-              {/* Cover Letter Upload (Optional) */}
+              {/* Cover Letter URL (Optional) */}
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Cover Letter (Optional)
+                  Cover Letter URL (Optional)
                 </label>
-                <div
-                  className="relative p-6 text-center transition-all duration-300 border-2 border-gray-300 border-dashed rounded-xl hover:border-blue-400 hover:bg-blue-50"
-                  onDragEnter={(e) => handleDrag(e, 'coverLetter')}
-                  onDragLeave={(e) => handleDrag(e, 'coverLetter')}
-                  onDragOver={(e) => handleDrag(e, 'coverLetter')}
-                  onDrop={(e) => handleDrop(e, 'coverLetter')}
-                >
-                  <input
-                    ref={coverLetterInputRef}
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={(e) => handleFileUpload(e, 'coverLetter')}
-                    className="hidden"
-                  />
-                  
-                  {coverLetterFile ? (
-                    <div className="flex items-center justify-center space-x-3">
-                      <FileText className="w-6 h-6 text-green-500" />
-                      <div>
-                        <p className="font-medium text-gray-900">{coverLetterFile.name}</p>
-                        <p className="text-sm text-gray-500">{(coverLetterFile.size / 1024 / 1024).toFixed(2)} MB</p>
-                      </div>
-                      <button
-                        onClick={() => setCoverLetterFile(null)}
-                        className="p-1 text-red-500 transition-colors rounded-full hover:bg-red-50"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  ) : (
-                    <div>
-                      <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-                      <p className="mb-1 font-medium text-gray-900">Upload cover letter</p>
-                      <button
-                        onClick={() => coverLetterInputRef.current?.click()}
-                        className="text-blue-600 transition-colors hover:text-blue-700"
-                      >
-                        Choose File
-                      </button>
-                    </div>
-                  )}
-                </div>
+                <input
+                  type="url"
+                  value={coverLetterFile}
+                  onChange={(e) => setCoverLetterFile(e.target.value)}
+                  className="w-full px-4 py-3 transition-colors border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="https://your-cover-letter-link.com"
+                />
+                {errors['coverLetter'] && (
+                  <p className="mt-1 text-sm text-red-600">{errors['coverLetter']}</p>
+                )}
               </div>
 
               {/* Why interested */}
@@ -678,12 +671,12 @@ const JobApplicationPage = ({ job, onClose, onSubmit }) => {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Resume: {resume?.name}</span>
+                    <span>Resume: {resume}</span>
                   </div>
                   {coverLetterFile && (
                     <div className="flex items-center space-x-2">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span>Cover Letter: {coverLetterFile.name}</span>
+                      <span>Cover Letter: {coverLetterFile}</span>
                     </div>
                   )}
                 </div>
