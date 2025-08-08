@@ -1,0 +1,47 @@
+* {
+    /* background: linear-gradient(to bottom right, #f9f9f9, #eaeaea); */
+}
+
+.scroll-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Add explicit width */
+    max-width: 100vw; /* Prevent overflow beyond viewport */
+}
+
+.scroll-content {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    will-change: transform;
+    width: max-content; /* Allow content to be wider than container */
+}
+
+.scroll-row {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.logo-card {
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto; /* Allow natural sizing */
+    min-width: 0; /* Prevent flex item overflow */
+}
+
+.logo-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.logo-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}

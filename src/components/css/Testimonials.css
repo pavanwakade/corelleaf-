@@ -1,0 +1,148 @@
+.testimonials-section {
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #eff6ff, #faf5ff, #fdf2f8);
+  text-align: center;
+  overflow: hidden;
+}
+
+.testimonials-header .header-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.testimonials-header h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #111, #6b21a8, #111);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin: .5rem 0;
+}
+
+.testimonials-header p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #4b5563;
+}
+
+.testimonial-card {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.quote-icon {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  opacity: 0.1;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: .3rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  color: #facc15;
+}
+
+blockquote {
+  font-style: italic;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  color: white;
+  padding: .6rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.arrow.left { left: -1.5rem; }
+.arrow.right { right: -1.5rem; }
+
+.arrow:hover {
+  transform: scale(1.1) translateY(-50%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+}
+
+.client-info strong {
+  font-size: 1.1rem;
+}
+
+.client-info .role {
+  font-weight: bold;
+}
+
+.client-info .company {
+  color: #6b7280;
+}
+
+.client-info .project {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  color: #9ca3af;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: #d1d5db;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.dot.active {
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.dot:hover {
+  transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .arrow.left { left: -1rem; }
+  .arrow.right { right: -1rem; }
+  .testimonial-card { padding: 1rem; }
+  .testimonials-header h2 { font-size: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .arrow { padding: .4rem; }
+  .dot { width: 8px; height: 8px; }
+}

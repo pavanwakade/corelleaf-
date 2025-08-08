@@ -1,0 +1,57 @@
+/* Hide default cursor */
+body, html, #root {
+  cursor: none;
+}
+
+/* Main cursor */
+.advanced-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at center, #6a11cb, #2575fc);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0);
+  transition: background 0.3s ease, transform 0.15s ease;
+  z-index: 10000;
+  mix-blend-mode: difference;
+  box-shadow: 0 0 8px rgba(101, 67, 255, 0.7);
+}
+
+/* On hover on interactive elements */
+.advanced-cursor.hover {
+  background: radial-gradient(circle at center, #ff4e50, #f9d423);
+  transform: translate3d(-50%, -50%, 0) scale(1.5);
+  box-shadow: 0 0 12px rgba(255, 78, 80, 0.9);
+}
+
+/* On click */
+.advanced-cursor.click {
+  transform: translate3d(-50%, -50%, 0) scale(0.7);
+  box-shadow: 0 0 20px #ff4e50;
+}
+
+/* Trailing dots */
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: #6a11cb;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0);
+  transition: background 0.3s ease;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  box-shadow: 0 0 6px rgba(101, 67, 255, 0.5);
+}
+
+/* Trail color changes on hover */
+.advanced-cursor.hover ~ .cursor-trail {
+  background: #ff4e50;
+  box-shadow: 0 0 8px rgba(255, 78, 80, 0.7);
+}

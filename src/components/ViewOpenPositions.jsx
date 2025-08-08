@@ -23,6 +23,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import JobApplicationPage from "./JobApplicationPage"; // Import the application page component
 import axios from "axios"; // NEW: Import axios for fetching data
+import ErrorPage from "./Pages/ErrorPage";
+import NetworkErrorPage from "./Pages/NetworkErrorPage";
+import LoadingPage from "./Pages/LoadingPage";
 
 const ViewOpenPositions = () => {
   const navigate = useNavigate();
@@ -86,7 +89,7 @@ const ViewOpenPositions = () => {
 
   // NEW: Extracted fetch function for reusability (e.g., retry)
   const fetchJobs = async () => {
-    setLoading(true);
+    setLoading(<LoadingPage />);
     setError(null);
     try {
       // MODIFIED: Removed &single=true to fetch all rows; ensure your sheet is published correctly
@@ -104,8 +107,10 @@ const ViewOpenPositions = () => {
       console.error("Error fetching jobs:", err);
       // MODIFIED: More informative error message
       setError(
-        `Failed to load jobs: ${err.message}. Check the console for details or verify the sheet URL.`
+        // `Failed to load jobs: ${err.message}. Check the console for details or verify the sheet URL.`
+        <NetworkErrorPage />
       );
+
     } finally {
       setLoading(false);
     }
@@ -618,32 +623,7 @@ const ViewOpenPositions = () => {
                           </div>
                         </div>
 
-                        {/* Action Button */}
-                        <div className="w-full">
-                          {appliedJobs.has(job.id) ? (
-                            <div className="flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-green-600 bg-green-100 rounded-xl">
-                              <Heart className="mr-2" size={16} />
-                              Applied
-                            </div>
-                          ) : (
-                            <button
-                              onClick={() => handleApply(job)}
-                              className={`relative flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white bg-gradient-to-r ${job.gradient} rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 overflow-hidden group/btn`}
-                            >
-                              {/* Button shine effect */}
-                              <div className="absolute inset-0 transition-transform duration-700 transform -translate-x-full -skew-x-12 bg-white/20 group-hover/btn:translate-x-full" />
-
-                              <span className="relative z-10 flex items-center">
-                                <Send
-                                  size={16}
-                                  className="mr-2 group-hover/btn:animate-bounce"
-                                />
-                                Apply Now
-                              </span>
-                            </button>
-                          )}
-                        </div>
-
+                       
                         {/* Expanded Requirements (shown on hover) */}
                         {hoveredJob === job.id && (
                           <div className="mt-6 transition-all duration-500 transform translate-y-0 opacity-100">
@@ -693,9 +673,38 @@ const ViewOpenPositions = () => {
                               </div>
                             </div>
                           </div>
+                          
                         )}
+                         {/* Action Button */}
+                        <div className="w-full">
+                          {appliedJobs.has(job.id) ? (
+                            <div className="flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-green-600 bg-green-100 rounded-xl">
+                              <Heart className="mr-2" size={16} />
+                              Applied
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => handleApply(job)}
+                              className={`relative flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white bg-gradient-to-r ${job.gradient} rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 overflow-hidden group/btn`}
+                            >
+                              {/* Button shine effect */}
+                              <div className="absolute inset-0 transition-transform duration-700 transform -translate-x-full -skew-x-12 bg-white/20 group-hover/btn:translate-x-full" />
+
+                              <span className="relative z-10 flex items-center">
+                                <Send
+                                  size={16}
+                                  className="mr-2 group-hover/btn:animate-bounce"
+                                />
+                                Apply Now
+                              </span>
+                            </button>
+                          )}
+                        </div>
+
                       </div>
+                      
                     </div>
+                    
                   ))}
                 </div>
 

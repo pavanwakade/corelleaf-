@@ -14,6 +14,7 @@ import {
   Shield,
   Award,
 } from "lucide-react";
+import NetworkErrorPage from "./Pages/NetworkErrorPage";
 
 const scriptURL =
   " https://script.google.com/macros/s/AKfycbz7W7fsSf4rLztHFkJKA3MgdIgc7DByN7v0g5ujVYbxTny9LSZNUFoDERwKy6X7xjK7CA/exec"; // REPLACE WITH YOUR DEPLOYMENT ID
@@ -36,6 +37,8 @@ const Contact = () => {
   const [hoveredInfo, setHoveredInfo] = useState(null);
   const [focusedField, setFocusedField] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasNetworkError, setHasNetworkError] = useState(false);
+
   const sectionRef = useRef(null);
   const formRef = useRef(null);
 
@@ -130,7 +133,8 @@ const Contact = () => {
         }, 4000); // Display success message for 4 seconds
       } catch (error) {
         console.error("Error submitting form:", error);
-        alert("There was an error submitting your form. Please try again.");
+        // alert("There was an error submitting your form. Please try again.");
+        setHasNetworkError(true);
       } finally {
         setIsSubmitting(false);
       }
@@ -219,6 +223,10 @@ const Contact = () => {
       id="contact"
       className="relative py-16 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-purple-50 sm:py-20 lg:py-24"
     >
+
+      <div>
+        {hasNetworkError? <NetworkErrorPage /> :""}
+      </div>
       {/* Advanced Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <FloatingParticles count={30} />

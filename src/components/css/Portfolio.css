@@ -1,0 +1,335 @@
+/* Section styling */
+.portfolio-section {
+    min-height: 100vh;
+    padding: 60px 20px;
+    background: linear-gradient(to bottom right, #f9f9f9, #eaeaea);
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #7b2ff7, #00c6ff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.section-subtitle {
+    color: #555;
+    font-size: 1.1rem;
+}
+
+/* Portfolio grid */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Card style */
+.portfolio-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeInUp 0.6s ease-out forwards;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-card:hover {
+    transform: perspective(1000px) rotateX(3deg) rotateY(-3deg) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* Image parallax */
+.card-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.portfolio-card:hover img {
+    transform: scale(1.12) translateY(-4px);
+}
+
+/* Title always at top */
+.card-title-top {
+    position: absolute;
+    top: 3px;
+    left: 15px;
+    /* background: rgba(0, 0, 0, 0.6); */
+    background: rgba(100, 100, 100, 0.253);
+  backdrop-filter: blur(2px);     /* blur effect */
+  -webkit-backdrop-filter: blur(2px);
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* Glassmorphism overlay */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Hover overlay */
+.overlay {
+    position: absolute;
+    inset: 0;
+    color: white;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    transition: opacity 0.4s ease;
+}
+
+.portfolio-card:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-content {
+    padding-top: 40px;
+    text-align: center;
+}
+
+.overlay-content p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* Tags with gradient glow */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+}
+
+.tag {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 6px 12px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 2px 10px rgba(123, 47, 247, 0.3);
+}
+
+/* See more button */
+.see-more-fixed {
+    align-self: flex-end;
+    background: linear-gradient(to right, #7b2ff7, #00c6ff);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+    /* font-weight: bold; */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    transition: transform 0.3s ease;
+}
+
+.see-more-fixed:hover {
+    transform: scale(1.05);
+}
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 90%;
+    overflow: hidden;
+    animation: popUp 0.4s ease-out;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    z-index: 2;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.modal-image {
+    position: relative;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.modal-image h2 {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    color: white;
+    font-size: 1.8rem;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body p {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.modal-body h3 {
+    margin-bottom: 10px;
+}
+
+.modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========== MOBILE OVERRIDES ========== */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .modal-image img {
+        height: 200px;
+    }
+
+    /* Remove blur effects completely on mobile */
+    .glass {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Always show overlay and button; remove hover/tilt/scale transforms */
+    .overlay {
+        opacity: 1 !important;
+        pointer-events: auto;
+        /* slightly darker overlay on mobile so text is readable */
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.36)) !important;
+    }
+
+    .overlay-content {
+        display: block;
+    }
+
+    .portfolio-card,
+    .portfolio-card:hover {
+        transform: none !important;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-image img,
+    .portfolio-card:hover img {
+        transform: none !important;
+    }
+
+    /* Make button always visible and fixed at bottom-right of card */
+    .see-more-fixed {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        align-self: auto;
+        opacity: 1 !important;
+        visibility: visible;
+        transform: none !important;
+        padding: 10px 14px;
+    }
+
+    /* Disable hover scale on the button on mobile */
+    .see-more-fixed:hover {
+        transform: none !important;
+    }
+
+    /* Swap button text for mobile */
+    .desktop-text {
+        display: none;
+    }
+
+    .mobile-text {
+        display: inline;
+    }
+}
