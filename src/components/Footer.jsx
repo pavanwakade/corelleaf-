@@ -159,7 +159,7 @@ const Footer = () => {
                 <Mail size={18} className="text-blue-400" />
                 <a
                   href="mailto:info@corelleaf.com"
-                  className="text-gray-300 hover:text-blue-400 transition"
+                  className="text-gray-300 transition hover:text-blue-400"
                 >
                   info@corelleaf.com
                 </a>
@@ -169,7 +169,7 @@ const Footer = () => {
                 <Mail size={18} className="text-blue-400" />
                 <a
                   href="mailto:career@corelleaf.com"
-                  className="text-gray-300 hover:text-blue-400 transition"
+                  className="text-gray-300 transition hover:text-blue-400"
                 >
                   career@corelleaf.com
                 </a>
@@ -201,7 +201,7 @@ const Footer = () => {
               © 2018 corelleaf design studio. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
-              <a
+              {/* <a
                 href="#"
                 className="text-gray-400 transition-colors duration-300 hover:text-white"
               >
@@ -218,7 +218,7 @@ const Footer = () => {
                 className="text-gray-400 transition-colors duration-300 hover:text-white"
               >
                 Cookie Policy
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
