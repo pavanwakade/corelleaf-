@@ -198,7 +198,7 @@ const Footer = () => {
         <div className="pt-8 mt-12 border-t border-gray-800">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-gray-400">
-              © 2018 corelleaf design studio. All rights reserved.
+              © 2025 corelleaf design studio. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
               {/* <a

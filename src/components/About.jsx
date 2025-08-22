@@ -65,21 +65,21 @@ const About = () => {
 
   const stats = [
     {
-      number: 150,
+      number: 250,
       label: "Projects Completed",
       icon: <TrendingUp size={24} />,
       gradientClass: "stat-blue",
       description: "Successfully delivered projects across various industries."
     },
     {
-      number: 50,
+      number: 200,
       label: "Happy Clients",
       icon: <Heart size={24} />,
       gradientClass: "stat-pink",
       description: "Long-term partnerships built on trust and results."
     },
     {
-      number: 7,
+      number: 9,
       label: "Years Experience",
       icon: <Shield size={24} />,
       gradientClass: "stat-green",

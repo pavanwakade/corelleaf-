@@ -1858,10 +1858,7 @@
 
 
 
-
-
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import logo from '../Assets/logo.png'; // Replace with your logo path
 
 const LogoCircle = () => {
   const [hoveredLogo, setHoveredLogo] = useState(null);
@@ -1879,54 +1876,54 @@ const LogoCircle = () => {
       glow: { duration: 5 }
     },
     layout: {
-      baseRadius: { sm: 120, md: 160, lg: 200 },
-      centerSize: { sm: 80, md: 100, lg: 120 },
-      itemSize: { sm: 56, md: 72, lg: 84 }
+      baseRadius: { sm: 100, md: 140, lg: 180 },
+      centerSize: { sm: 60, md: 80, lg: 100 },
+      itemSize: { sm: 44, md: 60, lg: 76 }
     },
-    particles: { count: 75, minSize: 1, maxSize: 3 }
+    particles: { count: 50, minSize: 1, maxSize: 2 }
   };
 
   // SVG Icon Components
   const IconComponents = {
     Globe: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
         <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm6.6 5.8c-.3-.8-.7-1.5-1.2-2.1-.5.5-1.3 1.1-2.4 1.6-.3-.9-.7-1.7-1.1-2.4 1.5.4 2.9 1.2 4.1 2.3.2.2.4.4.6.6zm-9.5-1.3c-.4.7-.8 1.5-1.1 2.4-1.1-.5-1.9-1.1-2.4-1.6-.5.6-.9 1.3-1.2 2.1.7-.4 1.5-.7 2.3-.9.5-.5 1.1-1 1.8-1.4.2-.2.4-.4.6-.6zm-3.7 4.5h2.5c-.1.7-.1 1.3-.1 2s0 1.3.1 2H5.4c-.2-.6-.4-1.3-.4-2s.2-1.4.4-2zm4.2 0h3c0 .7 0 1.3 0 2s0 1.3 0 2h-3c0-.7 0-1.3 0-2s0-1.3 0-2zm5 0h2.5c.2.6.4 1.3.4 2s-.2 1.4-.4 2H14.6c.1-.7.1-1.3.1-2s0-1.3-.1-2z"/>
       </svg>
     ),
     Smartphone: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
         <path d="M7 2C6.45 2 6 2.45 6 3v18c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1H7zm5 19c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4-3H8V4h8v14z"/>
       </svg>
     ),
     Palette: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
         <path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-.56 2.5-1.25 0-.34-.13-.68-.37-.93-.24-.24-.38-.58-.38-.93 0-.69.56-1.25 1.25-1.25H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 8 6.5 8s1.5.67 1.5 1.5S7.33 11 6.5 11zm3-4C8.67 7 8 6.33 8 5.5S8.67 4 9.5 4s1.5.67 1.5 1.5S10.33 7 9.5 7zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 4 14.5 4s1.5.67 1.5 1.5S15.33 7 14.5 7zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 8 17.5 8s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
       </svg>
     ),
     Cloud: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
         <path d="M19.36 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.64-4.96z"/>
       </svg>
     ),
     Database: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
         <path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4z"/>
         <path d="M4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4z"/>
         <path d="M4 16v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z"/>
       </svg>
     ),
     Shield: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
         <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11C15.4,11 16,11.4 16,12V16C16,16.6 15.6,17 15,17H9C8.4,17 8,16.6 8,16V12C8,11.4 8.4,11 9,11V10C9,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.2,9.2 10.2,10V11H13.8V10C13.8,9.2 12.8,8.2 12,8.2Z"/>
       </svg>
     ),
     Zap: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
         <path d="M13 0L8.5 8H16L11 24L15.5 16H8L13 0Z"/>
       </svg>
     ),
     Bot: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
         <circle cx="15.5" cy="9.5" r="1.5"/>
         <circle cx="8.5" cy="9.5" r="1.5"/>
@@ -1934,7 +1931,7 @@ const LogoCircle = () => {
       </svg>
     ),
     Leaf: () => (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 sm:w-10 sm:h-10">
         <path d="M17.8 5.2c-.3-.2-.6-.2-.9-.2-3.8 0-7.4 1.5-10.2 4.3C4.4 11.6 3.2 15 3.2 18.7c0 .3.1.6.3.8.2.2.5.3.8.3 3.7 0 7.1-1.2 9.4-3.5 2.8-2.8 4.3-6.4 4.3-10.2 0-.3-.1-.6-.2-.9zm-6.1 10.7c-1.8 1.8-4.2 2.8-6.7 3.1.3-2.5 1.3-4.9 3.1-6.7 2.2-2.2 5.1-3.4 8.2-3.4-.1 3.1-1.3 6-4.6 7z"/>
       </svg>
     )
@@ -2033,7 +2030,7 @@ const LogoCircle = () => {
   // Calculate responsive values
   const responsiveValues = useMemo(() => {
     const { width } = dimensions;
-    if (width < 768) {
+    if (width < 640) {
       return {
         radius: config.layout.baseRadius.sm,
         centerSize: config.layout.centerSize.sm,
@@ -2051,7 +2048,7 @@ const LogoCircle = () => {
       };
     }
     return {
-      radius: config.layout.baseRadius.md,
+      radius: config.layout.baseRadius.lg,
       centerSize: config.layout.centerSize.lg,
       itemSize: config.layout.itemSize.lg,
       fontSize: 'text-2xl',
@@ -2095,18 +2092,18 @@ const LogoCircle = () => {
     
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      33% { transform: translateY(-12px) rotate(1deg); }
-      66% { transform: translateY(6px) rotate(-1deg); }
+      33% { transform: translateY(-8px) rotate(1deg); }
+      66% { transform: translateY(4px) rotate(-1deg); }
     }
     
     @keyframes glow {
       0%, 100% { 
-        filter: brightness(1) drop-shadow(0 0 20px rgba(255,255,255,0.3));
-        box-shadow: 0 0 30px rgba(255,255,255,0.1);
+        filter: brightness(1) drop-shadow(0 0 15px rgba(255,255,255,0.2));
+        box-shadow: 0 0 20px rgba(255,255,255,0.1);
       }
       50% { 
-        filter: brightness(1.3) drop-shadow(0 0 40px rgba(255,255,255,0.6));
-        box-shadow: 0 0 60px rgba(255,255,255,0.2);
+        filter: brightness(1.2) drop-shadow(0 0 25px rgba(255,255,255,0.4));
+        box-shadow: 0 0 40px rgba(255,255,255,0.15);
       }
     }
     
@@ -2156,47 +2153,57 @@ const LogoCircle = () => {
     .fade-in-up {
       animation: fadeInUp 0.8s ease-out forwards;
     }
+
+    @media (max-width: 640px) {
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-4px) rotate(0.5deg); }
+        66% { transform: translateY(2px) rotate(-0.5deg); }
+      }
+    }
   `;
 
   return (
-    <div className="flex items-center justify-center flex-1" id='hero'>
+    <div className="flex items-center justify-center w-full h-full px-4 py-8">
       {/* Inject CSS styles */}
       <style dangerouslySetInnerHTML={{ __html: cssStyles }} />
       
       {/* Main container */}
       <div 
-        className="relative"
+        className="relative flex-shrink-0"
         style={{
-          width: `${responsiveValues.radius * 2 + responsiveValues.centerSize + 60}px`,
-          height: `${responsiveValues.radius * 2 + responsiveValues.centerSize + 60}px`
+          width: `${Math.min(responsiveValues.radius * 2 + responsiveValues.centerSize + 40, dimensions.width - 32)}px`,
+          height: `${Math.min(responsiveValues.radius * 2 + responsiveValues.centerSize + 40, dimensions.height - 200)}px`,
+          maxWidth: '90vw',
+          maxHeight: '70vh'
         }}
       >
         {/* Multi-layered glow rings */}
         <div className="absolute inset-0">
-          {[...Array(4)].map((_, i) => (
+          {[...Array(3)].map((_, i) => (
             <div
               key={i}
               className="absolute rounded-full animate-pulse"
               style={{
-                inset: `${i * 8}px`,
-                background: `radial-gradient(circle, rgba(147, 51, 234, ${0.1 - i * 0.02}) 0%, transparent 70%)`,
+                inset: `${i * 6}px`,
+                background: `radial-gradient(circle, rgba(147, 51, 234, ${0.08 - i * 0.02}) 0%, transparent 70%)`,
                 animationDelay: `${i * 0.5}s`,
-                animationDuration: `${4 + i}s`
+                animationDuration: `${3 + i}s`
               }}
             />
           ))}
         </div>
         
         {/* Main glassmorphism background */}
-        <div className="absolute border rounded-full shadow-2xl inset-8 bg-white/5 backdrop-blur-xl border-white/10">
+        <div className="absolute border rounded-full shadow-xl inset-4 bg-white/5 backdrop-blur-xl border-white/10">
           <div className="absolute inset-0 rounded-full shimmer-effect" />
           {/* Ripple effects */}
           <div className="absolute inset-0 rounded-full">
-            {[...Array(3)].map((_, i) => (
+            {[...Array(2)].map((_, i) => (
               <div
                 key={i}
-                className="absolute inset-0 border rounded-full border-white/20 ripple-effect"
-                style={{ animationDelay: `${i * 0.7}s` }}
+                className="absolute inset-0 border rounded-full border-white/15 ripple-effect"
+                style={{ animationDelay: `${i * 1}s` }}
               />
             ))}
           </div>
@@ -2205,7 +2212,7 @@ const LogoCircle = () => {
         {/* Center logo container */}
         <div 
           className={`absolute z-30 flex flex-col items-center justify-center transform -translate-x-1/2 -translate-y-1/2 
-                     border-4 rounded-full shadow-2xl top-1/2 left-1/2 
+                     border-3 rounded-full shadow-xl top-1/2 left-1/2 
                      bg-gradient-to-br from-white/90 via-gray-50/80 to-gray-100/90 
                      border-white/30 backdrop-blur-md hover:border-white/50 
                      transition-all duration-500 cursor-pointer group`}
@@ -2218,8 +2225,11 @@ const LogoCircle = () => {
           tabIndex={0}
           aria-label="Corelleaf Logo"
         >
-          <div className="flex flex-col items-center justify-center text-center">
-            <img src={logo} alt="Corelleaf Logo" />
+          <div className="flex flex-col items-center justify-center p-2 text-center">
+            <IconComponents.Leaf />
+            <span className="mt-1 text-xs font-bold text-gray-800 sm:text-sm">
+              Corelleaf
+            </span>
           </div>
         </div>
         
@@ -2240,11 +2250,11 @@ const LogoCircle = () => {
                 }}
               >
                 <div 
-                  className={`relative w-full h-full bg-gradient-to-br ${service.bgColor} rounded-2xl
-                            flex flex-col items-center justify-center p-2
-                            shadow-xl ${service.shadowColor} hover:shadow-2xl
+                  className={`relative w-full h-full bg-gradient-to-br ${service.bgColor} rounded-xl sm:rounded-2xl
+                            flex flex-col items-center justify-center p-1 sm:p-2
+                            shadow-lg ${service.shadowColor} hover:shadow-xl
                             transition-all duration-500 ease-out cursor-pointer
-                            border-2 border-white/20 hover:border-white/40
+                            border border-white/20 hover:border-white/40
                             backdrop-blur-sm overflow-hidden group counter-rotate
                             ${isActive ? 'scale-110 z-40' : 'hover:scale-105'}
                             ${hoveredLogo === index ? 'brightness-110' : ''}`}
@@ -2256,6 +2266,8 @@ const LogoCircle = () => {
                   onMouseEnter={() => setHoveredLogo(index)}
                   onMouseLeave={() => setHoveredLogo(null)}
                   onClick={() => handleServiceClick(service, index)}
+                  onTouchStart={() => setHoveredLogo(index)}
+                  onTouchEnd={() => setHoveredLogo(null)}
                   role="button"
                   tabIndex={0}
                   aria-label={`${service.name} service`}
@@ -2268,16 +2280,16 @@ const LogoCircle = () => {
                     <div className="mb-1 text-white transition-all duration-300 filter drop-shadow-sm group-hover:scale-110 group-hover:text-yellow-200">
                       <service.icon />
                     </div>
-                    <span className="text-xs font-semibold leading-tight text-white transition-colors duration-300 group-hover:text-yellow-200">
+                    <span className="hidden text-xs font-semibold leading-tight text-white transition-colors duration-300 group-hover:text-yellow-200 sm:block">
                       {service.name.split(' ').map((word, i) => (
-                        <span key={i} className="block">{word}</span>
+                        <span key={i} className="block text-xs">{word}</span>
                       ))}
                     </span>
                   </div>
                   
-                  {/* Enhanced tooltip */}
-                  {hoveredLogo === index && (
-                    <div className="absolute z-50 px-4 py-3 text-sm text-white transform -translate-x-1/2 border shadow-2xl rounded-xl -top-20 left-1/2 bg-gray-900/95 backdrop-blur-md border-white/20 fade-in-up min-w-48">
+                  {/* Enhanced tooltip - only show on larger screens */}
+                  {hoveredLogo === index && dimensions.width > 640 && (
+                    <div className="absolute z-50 px-3 py-2 text-xs text-white transform -translate-x-1/2 border rounded-lg shadow-xl -top-16 left-1/2 bg-gray-900/95 backdrop-blur-md border-white/20 fade-in-up min-w-40">
                       <div className="mb-1 font-semibold">{service.description}</div>
                       <div className="text-xs text-gray-300">{service.details}</div>
                       <div className="absolute w-0 h-0 transform -translate-x-1/2 border-t-4 border-l-4 border-r-4 border-transparent top-full left-1/2 border-t-gray-900/95" />
@@ -2291,16 +2303,16 @@ const LogoCircle = () => {
         
         {/* Central pulse rings */}
         <div className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(3)].map((_, i) => (
             <div
               key={i}
               className="absolute border rounded-full border-white/5"
               style={{
-                width: `${responsiveValues.centerSize + i * 30}px`,
-                height: `${responsiveValues.centerSize + i * 30}px`,
-                left: `${-(responsiveValues.centerSize/2 + i * 15)}px`,
-                top: `${-(responsiveValues.centerSize/2 + i * 15)}px`,
-                animation: `pulse ${4 + i * 0.5}s ease-in-out infinite`,
+                width: `${responsiveValues.centerSize + i * 20}px`,
+                height: `${responsiveValues.centerSize + i * 20}px`,
+                left: `${-(responsiveValues.centerSize/2 + i * 10)}px`,
+                top: `${-(responsiveValues.centerSize/2 + i * 10)}px`,
+                animation: `pulse ${3 + i * 0.5}s ease-in-out infinite`,
                 animationDelay: `${i * 0.3}s`
               }}
             />
@@ -2308,12 +2320,12 @@ const LogoCircle = () => {
         </div>
       </div>
 
-      {/* Service details panel */}
+      {/* Service details panel - mobile optimized */}
       {activeService !== null && (
-        <div className="absolute z-40 transform -translate-x-1/2 bottom-8 left-1/2 fade-in-up">
-          <div className="px-6 py-4 border shadow-2xl bg-white/10 backdrop-blur-lg border-white/20 rounded-2xl">
-            <h3 className="mb-2 text-xl font-bold text-white">{services[activeService].name}</h3>
-            <p className="mb-2 text-sm text-gray-200">{services[activeService].description}</p>
+        <div className="absolute z-40 transform -translate-x-1/2 bottom-4 left-1/2 fade-in-up">
+          <div className="max-w-sm px-4 py-3 mx-4 border shadow-xl bg-white/10 backdrop-blur-lg border-white/20 rounded-xl">
+            <h3 className="mb-1 text-base font-bold text-white sm:text-lg">{services[activeService].name}</h3>
+            <p className="mb-1 text-xs text-gray-200 sm:text-sm">{services[activeService].description}</p>
             <p className="text-xs text-gray-300">{services[activeService].details}</p>
           </div>
         </div>
@@ -2322,31 +2334,28 @@ const LogoCircle = () => {
   );
 };
 
-// RevealText Component with smaller text and quote
+// RevealText Component with improved mobile responsiveness
 const RevealText = () => {
   return (
-    <section className="flex flex-col items-center justify-center flex-1 gap-6 px-8 py-24 text-white sm:gap-8 md:gap-10 sm:mt-0">
-      <div className="space-y-4 text-center sm:space-y-6 md:space-y-8">
+    <section className="flex flex-col items-center justify-center flex-1 gap-4 px-4 py-12 text-white sm:gap-6 md:gap-8 sm:py-16">
+      <div className="space-y-2 text-center sm:space-y-4 md:space-y-6">
         <FlipText>Scalable</FlipText>
         <FlipText>Software</FlipText>
         <FlipText>Solution</FlipText>
       </div>
-      <blockquote className="max-w-md mx-auto mt-8 text-sm italic text-center text-white/70 sm:text-base md:text-lg">
+      <blockquote className="max-w-sm mx-auto mt-4 text-xs italic text-center text-white/70 sm:max-w-md sm:text-sm md:text-base lg:text-lg sm:mt-6">
         Transforming businesses with scalable, innovative, and tailored solutions that push the boundaries of what's possible in the digital age.
       </blockquote>
     </section>
   );
 };
 
-
-
-
 const FlipText = ({ children }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className="relative block overflow-hidden text-3xl font-black uppercase cursor-default whitespace-nowrap sm:text-5xl md:text-6xl lg:text-7xl"
+      className="relative block overflow-hidden text-2xl font-black uppercase cursor-default whitespace-nowrap sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
       style={{ lineHeight: 0.75 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -2392,25 +2401,24 @@ const HeroSection = () => {
 
   // Generate background particles for the entire hero section
   const particles = useMemo(() => {
-    return Array.from({ length: 100 }, (_, i) => ({
+    const particleCount = dimensions.width < 640 ? 40 : 80;
+    return Array.from({ length: particleCount }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
-      size: 1 + Math.random() * 3,
+      size: 1 + Math.random() * 2,
       delay: Math.random() * 5,
       duration: 3 + Math.random() * 4,
       opacity: 0.1 + Math.random() * 0.3
     }));
-  }, []);
+  }, [dimensions.width]);
 
-const containerClasses = `
-    relative min-h-screen overflow-hidden pt-20 sm:pt-24 md:pt-28 lg:pt-10 
+  const containerClasses = `
+    relative min-h-screen overflow-hidden 
     bg-gradient-to-br from-slate-900 via-purple-900 via-indigo-900 to-slate-900
     transition-all duration-1000 ease-out
     ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
   `;
-
-
 
   return (
     <div className={containerClasses}>
@@ -2433,9 +2441,9 @@ const containerClasses = `
         ))}
       </div>
 
-      {/* Floating geometric shapes */}
+      {/* Floating geometric shapes - reduced for mobile */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {[...Array(dimensions.width < 640 ? 6 : 12)].map((_, i) => (
           <div
             key={i}
             className="absolute opacity-10"
@@ -2446,7 +2454,7 @@ const containerClasses = `
               animationDelay: `${i * 0.8}s`
             }}
           >
-            <div className={`w-12 h-12 ${i % 3 === 0 ? 'rounded-full' : i % 3 === 1 ? 'rounded-lg rotate-45' : 'rounded-sm rotate-12'} bg-gradient-to-r ${
+            <div className={`w-8 h-8 sm:w-12 sm:h-12 ${i % 3 === 0 ? 'rounded-full' : i % 3 === 1 ? 'rounded-lg rotate-45' : 'rounded-sm rotate-12'} bg-gradient-to-r ${
               i % 4 === 0 ? 'from-purple-400 to-blue-400' :
               i % 4 === 1 ? 'from-pink-400 to-purple-400' :
               i % 4 === 2 ? 'from-blue-400 to-cyan-400' :
@@ -2457,23 +2465,25 @@ const containerClasses = `
       </div>
 
       {/* Main content container */}
-      <div className="relative z-10 flex flex-col min-h-screen lg:flex-row">
-        {/* Left side - RevealText */}
-        
-
-        {/* Right side - LogoCircle */}
-        <div className="flex items-center justify-center flex-1 lg:justify-end lg:pr-12">
-          <LogoCircle />
-        </div>
-        <div className="flex items-center justify-center flex-1 lg:justify-start lg:pl-12 md:pt-[0px !important] md:mt-[0px !important]">
-          <RevealText />
+      <div className="relative z-10 flex flex-col min-h-screen">
+        {/* Mobile: Text first, then circle */}
+        <div className="flex flex-col lg:flex-row lg:min-h-screen">
+          {/* Text section */}
+          <div className="flex items-center justify-center flex-1 order-1 lg:order-1 lg:justify-start lg:pl-12">
+            <RevealText />
+          </div>
+          
+          {/* Logo circle section */}
+          <div className="flex items-center justify-center flex-1 order-2 lg:order-2 lg:justify-end lg:pr-12">
+            <LogoCircle />
+          </div>
         </div>
       </div>
 
       {/* Bottom gradient overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none bg-gradient-to-t from-slate-900/80 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none bg-gradient-to-t from-slate-900/80 to-transparent" />
     </div>
   );
 };
 
-export default HeroSection;
+export default HeroSection

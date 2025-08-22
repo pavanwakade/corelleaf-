@@ -168,7 +168,7 @@ const ViewOpenPositions = () => {
       data.push(jobObject);
     }
 
-    console.log("Parsed jobs:", data); // NEW: Debug log for verification
+    // console.log("Parsed jobs:", data); // NEW: Debug log for verification
     return data;
   };
 
